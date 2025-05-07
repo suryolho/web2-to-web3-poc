@@ -15,6 +15,8 @@ import { AbstraxionProvider } from "@burnt-labs/abstraxion-react-native";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
+import { TREASURY_CONTRACT_ADDRESS, RPC_ENDPOINT, REST_ENDPOINT } from "../constants/Config";
+
 import { Buffer } from "buffer";
 import crypto from "react-native-quick-crypto";
 global.crypto = crypto;
@@ -24,10 +26,10 @@ global.Buffer = Buffer;
 SplashScreen.preventAutoHideAsync();
 
 const treasuryConfig = {
-  treasury: "xion1r0tt64mdld2svywzeaf4pa7ezsg6agkyajk48ea398njywdl28rs3jhvry", // Example XION treasury instance
+  treasury: TREASURY_CONTRACT_ADDRESS, // Example XION treasury instance
   gasPrice: "0.001uxion", // If you feel the need to change the gasPrice when connecting to signer, set this value. Please stick to the string format seen in example
-  rpcUrl: "https://rpc.xion-testnet-2.burnt.com:443",
-  restUrl: "https://api.xion-testnet-2.burnt.com:443",
+  rpcUrl: RPC_ENDPOINT,
+  restUrl: REST_ENDPOINT,
   callbackUrl: "abstraxion-expo-demo://", // this comes from app.json scheme
 };
 

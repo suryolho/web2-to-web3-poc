@@ -6,10 +6,9 @@ import {
   useAbstraxionClient,
 } from "@burnt-labs/abstraxion-react-native";
 import type { ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { USER_MAP_CONTRACT_ADDRESS, RPC_ENDPOINT, REST_ENDPOINT } from "../../constants/Config";
 
-if (!USER_MAP_CONTRACT_ADDRESS) {
-  throw new Error("USER_MAP_CONTRACT_ADDRESS is not set in constants/Config.ts");
+if (!process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS) {
+  throw new Error("EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS is not set in your environment file");
 }
 
 type ExecuteResultOrUndefined = ExecuteResult | undefined;
@@ -71,7 +70,7 @@ export default function Index() {
       if (account?.bech32Address && queryClient) {
         try {
           const response = await retryOperation(async () => {
-            return await queryClient.queryContractSmart(USER_MAP_CONTRACT_ADDRESS, {
+            return await queryClient.queryContractSmart(process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS, {
               get_value_by_user: { 
                 address: account.bech32Address 
               }
@@ -139,7 +138,7 @@ export default function Index() {
     setShowValueByUserForm(false);
     try {
       if (!queryClient) throw new Error("Query client is not defined");
-      const response = await queryClient.queryContractSmart(USER_MAP_CONTRACT_ADDRESS, { get_users: {} });
+      const response = await queryClient.queryContractSmart(process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS, { get_users: {} });
       setQueryResult({ users: response });
     } catch (error) {
       Alert.alert("Error", "Error querying users");
@@ -158,7 +157,7 @@ export default function Index() {
     setShowValueByUserForm(false);
     try {
       if (!queryClient) throw new Error("Query client is not defined");
-      const response = await queryClient.queryContractSmart(USER_MAP_CONTRACT_ADDRESS, { get_map: {} });
+      const response = await queryClient.queryContractSmart(process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS, { get_map: {} });
       setQueryResult({ map: response });
     } catch (error) {
       Alert.alert("Error", "Error querying map");
@@ -177,7 +176,7 @@ export default function Index() {
     setShowValueByUserForm(false);
     try {
       if (!queryClient) throw new Error("Query client is not defined");
-      const response = await queryClient.queryContractSmart(USER_MAP_CONTRACT_ADDRESS, { 
+      const response = await queryClient.queryContractSmart(process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS, { 
         get_value_by_user: { address } 
       });
       setQueryResult({ value: response });
@@ -247,7 +246,7 @@ export default function Index() {
       const res = await retryOperation(async () => {
         return await client.execute(
           account.bech32Address,
-          USER_MAP_CONTRACT_ADDRESS,
+          process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS,
           msg,
           "auto"
         );
@@ -266,7 +265,7 @@ export default function Index() {
       // Refresh data with retry
       const updatedData = await retryOperation(async () => {
         if (!queryClient) throw new Error("Query client not available");
-        return await queryClient.queryContractSmart(USER_MAP_CONTRACT_ADDRESS, {
+        return await queryClient.queryContractSmart(process.env.EXPO_PUBLIC_USER_MAP_CONTRACT_ADDRESS, {
           get_value_by_user: { 
             address: account.bech32Address 
           }

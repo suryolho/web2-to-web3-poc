@@ -314,7 +314,10 @@ export default function Index() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView 
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <Text style={styles.title}>User Map Dapp</Text>
 
       {!isConnected ? (
@@ -526,8 +529,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f0f0",
+  },
+  contentContainer: {
     padding: 20,
-    paddingBottom: 100,
+    paddingTop: 60,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 24,

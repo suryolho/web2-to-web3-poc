@@ -1,7 +1,8 @@
 {
-  "name": "abstraxion-expo-demo",
+  "name": "web2-to-web3-poc",
+  "version": "0.0.1",
+  "description": "Web2 to Web3 Proof of Concept using Dave SDK",
   "main": "expo-router/entry",
-  "version": "1.0.0",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
